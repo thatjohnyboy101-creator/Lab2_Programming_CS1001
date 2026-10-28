@@ -4,6 +4,13 @@ from day2 import first_element, long_words, normalize_words
 
 
 class TestFirstElement(unittest.TestCase):
+    def test_single_element_lists(self):
+        self.assertEqual(first_element([[0], [-2], [5]]), [0, -2, 5])
+
+    def test_returns_new_list(self):
+        groups = []
+        self.assertIsNot(first_element(groups), groups)
+
     def test_mixed_nested_lists(self):
         self.assertEqual(
             first_element([[1, 2, 3], [], [4, 5], [6], []]),
@@ -24,6 +31,21 @@ class TestFirstElement(unittest.TestCase):
 
 
 class TestLongWords(unittest.TestCase):
+    def test_empty_list(self):
+        self.assertEqual(long_words([], 3), [])
+
+    def test_empty_string_is_too_short(self):
+        self.assertEqual(long_words(["", "a"], 1), ["a"])
+
+    def test_zero_minimum_includes_every_string(self):
+        words = ["", "cat", "a", "cat"]
+        result = long_words(words, 0)
+        self.assertEqual(result, ["", "cat", "a", "cat"])
+        self.assertIsNot(result, words)
+
+    def test_negative_minimum(self):
+        self.assertEqual(long_words(["", "hi"], -1), ["", "hi"])
+
     def test_typical_words(self):
         self.assertEqual(
             long_words(["cat", "elephant", "dog", "computer", "hi"], 4),
@@ -44,6 +66,16 @@ class TestLongWords(unittest.TestCase):
 
 
 class TestNormalizeWords(unittest.TestCase):
+    def test_already_lowercase(self):
+        words = ["hello", "world", "hello"]
+        result = normalize_words(words)
+        self.assertEqual(result, ["hello", "world", "hello"])
+        self.assertIsNot(result, words)
+
+    def test_mixed_case_and_spaces(self):
+        self.assertEqual(normalize_words(["PyThOn", " ", "Hi!"]),
+                         ["python", " ", "hi!"])
+
     def test_mixed_capitalization_and_empty_strings(self):
         self.assertEqual(
             normalize_words(["Hello", "", "WORLD", "Python", ""]),

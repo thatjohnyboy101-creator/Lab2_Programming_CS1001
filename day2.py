@@ -8,14 +8,26 @@ Each function must return a new list and must not modify its input list.
 
 def first_element(groups: list[list[int]]) -> list[int]:
     """Return the first element of each non-empty nested list."""
-    pass
+    result = []
+    for group in groups:
+        if len(group) > 0:
+            result.append(group[0])
+    return result
 
 
 def long_words(words: list[str], minimum: int) -> list[str]:
     """Return strings whose length is greater than or equal to minimum."""
-    pass
+    result = []
+    for word in words:
+        if len(word) >= minimum:
+            result.append(word)
+    return result
 
 
 def normalize_words(words: list[str]) -> list[str]:
     """Return non-empty strings converted to lowercase."""
-    pass
+    result = []
+    for word in words:
+        if word != "":
+            result.append(word.lower())
+    return result
